@@ -1,0 +1,8 @@
+[package]
+name = "shellbookmark"
+version = "0.1.0"
+authors = ["Kai Sickeler <k.sickeler@gmail.com>"]
+
+[dependencies]
+clap = "*"
+rustbreak = "*"
