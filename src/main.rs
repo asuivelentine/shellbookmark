@@ -39,24 +39,20 @@ fn main() {
         .get_matches();
 
 
-    match matches.value_of("set") {
-        Some(n) => set(n),
-        _ => {},
+    if let Some(n) = matches.value_of("set") {
+        set(n)
     }
 
-    match matches.value_of("get") {
-        Some(n) => get(n),
-        _ => {},
+    if let Some(n) = matches.value_of("get") {
+        get(n)
     }
 
-    match matches.is_present("remove") {
-        true => remove(),
-        _ => {},
+    if matches.is_present("remove") {
+        remove()
     }
 
-    match matches.value_of("delete") {
-        Some(n) => delete(n),
-        _ => {},
+    if let Some(n) = matches.value_of("delete") {
+        delete(n)
     }
 
     unreachable!()
