@@ -88,12 +88,17 @@ fn set(name: &str) -> ! {
 }
 
 fn get(name: &str) -> ! {
+    let current = env::current_dir().unwrap();
+    let current = current.to_str().unwrap();
     let path = Database::<String>::open(String::from(STOREPATH))
         .and_then(|d| d.retrieve::<String, str>(name));
 
     match path {
         Ok(n) => print!("{}", n),
-        _ => exit(1),
+        _ => {
+            print!("{}", current);
+            exit(1);
+        },
     }
 
     exit(0)
