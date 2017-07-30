@@ -1,11 +1,13 @@
 
 extern crate clap;
 extern crate rustbreak;
+extern crate regex;
 
 use std::process::exit;
 use std::env;
 use clap::{Arg, App};
 use rustbreak::Database;
+use regex::Regex;
 
 static STOREPATH: &'static str = "/home/asui/.config/pathstore";
 
@@ -93,13 +95,19 @@ fn set(name: &str) -> ! {
 }
 
 fn get(name: &str) -> ! {
+    let pat = Regex::new(r"([a-zA-Z0-9]+)/([a-zA-Z0-9]+)").unwrap();
+    let path = match pat.captures(name) {
+           Some(x) => (String::from(&x[1]), String::from(&x[2])),
+           _ => (String::from(name), String::from("")),
+        };
+
     let current = env::current_dir().unwrap();
     let current = current.to_str().unwrap();
-    let path = Database::<String>::open(String::from(STOREPATH))
-        .and_then(|d| d.retrieve::<String, str>(name));
+    let entry = Database::<String>::open(String::from(STOREPATH))
+        .and_then(|d| d.retrieve::<String, str>(&path.0));
 
-    match path {
-        Ok(n) => print!("{}", n),
+    match entry {
+        Ok(n) => print!("{}/{}", n, path.1),
         _ => {
             print!("{}", current);
             exit(1);
