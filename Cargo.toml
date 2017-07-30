@@ -5,4 +5,4 @@ authors = ["Kai Sickeler <k.sickeler@gmail.com>"]
 
 [dependencies]
 clap = "*"
-rustbreak = "*"
+rustbreak = { git = "https://github.com/asuivelentine/rustbreak", branch = "debug" }
