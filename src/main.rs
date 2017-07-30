@@ -20,6 +20,11 @@ fn main() {
              .value_name("name")
              .help("Sets the current path ")
              .takes_value(true))
+        .arg(Arg::with_name("print")
+             .short("p")
+             .long("print")
+             .help("Prints the current store")
+             .takes_value(false))
         .arg(Arg::with_name("get")
              .short("g")
              .long("get")
@@ -49,6 +54,10 @@ fn main() {
 
     if matches.is_present("remove") {
         remove()
+    }
+
+    if matches.is_present("print") {
+        print()
     }
 
     if let Some(n) = matches.value_of("delete") {
@@ -108,6 +117,14 @@ fn remove() -> ! {
         Ok(_) => exit(0),
         _ => exit(1),
     }
+}
+
+fn print() -> ! {
+    let db = Database::<String>::open(String::from(STOREPATH));
+    if let Ok(d) = db {
+        print!("{:?}", d);
+    }
+    exit(1)
 }
 
 fn delete(name: &str) -> ! {
