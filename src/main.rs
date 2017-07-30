@@ -1,4 +1,3 @@
-
 extern crate clap;
 extern crate rustbreak;
 extern crate regex;
@@ -86,7 +85,6 @@ fn set(name: &str) -> ! {
                       println!("{:?}", e);
                       ()
                   }));
-
 
     match path {
         Ok(_) => exit(0),
