@@ -93,7 +93,7 @@ fn set(name: &str) -> ! {
 }
 
 fn get(name: &str) -> ! {
-    let pat = Regex::new(r"([a-zA-Z0-9]+)/([a-zA-Z0-9]+)").unwrap();
+    let pat = Regex::new(r"([a-zA-Z0-9]+)/(.*)").unwrap();
     let path = match pat.captures(name) {
            Some(x) => (String::from(&x[1]), String::from(&x[2])),
            _ => (String::from(name), String::from("")),
