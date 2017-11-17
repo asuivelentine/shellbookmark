@@ -1,6 +1,7 @@
 # Shellbookmark
 
 Shellbookmark is a simple key-value store based bookmark tracker.
+
 !!! Change main.rs to your own home directory !!!
 ```
 static STOREPATH: &'static str = "/home/asui/.config/pathstore";
